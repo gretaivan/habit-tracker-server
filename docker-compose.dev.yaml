@@ -1,0 +1,28 @@
+services:
+    api:
+        container_name: habit_tracker_api
+        ports: 
+            - 3000:3000
+        environment: 
+            - PGUSER=admin
+            - PGHOST=db
+            - PGPASSWORD=pass
+            - PGDATABASE=habit_dev
+            - PGPORT=5432
+            - NODE_ENV=development
+        depends_on:
+            - db
+        command: bash -c "npm install && npm run seedDev && npm run dev"
+    db:
+        container_name: habit_tracker_db
+        volumes:
+            - "dbdata:/var/lib/postgresql/data"
+        environment: 
+            - POSTGRES_DB=habit-dev
+            - POSTGRES_USER=admin
+            - POSTGRES_PASSWORD=pass
+volumes:
+    dbdata:
+networks: 
+    default:
+        name: habit_tracker_app_dev
