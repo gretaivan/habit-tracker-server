@@ -16,15 +16,18 @@ An app to track your habits.
 
 
 ### To run in server
-+ **`bash _scripts/startDev.sh`**
-    - starts api & db services
-+ **`npm run unitTests`** (from within api folder)
-    - triggers a test run of unit tests only
-+ **`bash _scripts/startTest.sh`**
-- starts api & db services testing
++  start api & db services
+**`bash _scripts/startDev.sh`**
+ 
++ triggers a test run of unit tests only
+**`npm run unitTests`** 
+  
++ starts api & db services testing
+**`bash _scripts/startTest.sh`**
 
++ stop all running services with removal of data
 **`bash _scripts/teardown.sh`**
-- stop all running services with removal of data
+
 
 ***Do not run both dev and test environments at the same time.***
 *** **`dbConfig`** file should be used with names that has prefic "dev_" ***
