@@ -1,0 +1,22 @@
+services: 
+    api:
+        container_name: habit_api_test
+        environment: 
+            - PGUSER=admin
+            - PGHOST=db
+            - PGPASSWORD=pass
+            - PGDATABASE=habit_test
+            - PGPORT=5432
+            - NODE_ENV=development
+        depends_on: 
+            - db
+        tty: true
+    db:
+        container_name: habit_db_test
+        volumes: 
+            - "test_db:/var/lib/postgresql/data"
+        environment:
+            - POSTGRES_DB=habit_test
+            - POSTGRES_PASSWORD=pass
+volumes:
+    test_db:
