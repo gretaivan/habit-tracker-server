@@ -7,7 +7,7 @@ services:
             - PGUSER=admin
             - PGHOST=db
             - PGPASSWORD=pass
-            - PGDATABASE=habit_dev
+            - PGDATABASE=habit-dev
             - PGPORT=5432
             - NODE_ENV=development
         depends_on:
