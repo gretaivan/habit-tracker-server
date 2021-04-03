@@ -14,10 +14,10 @@ async function create (req, res) {
 
 async function find (req, res) {
     try {
-        const userPassword = await User.findByUsername(req.body.username);
-        const authed = bcrypt.compare(req.body.password, userPassword);
+        const user = await User.findByUsername(req.body.username);
+        const authed = bcrypt.compare(req.body.password, user.password);
         if (authed) {
-            res.status(200).json({user});
+            res.status(200).json(user.id);
         } else {
             throw new Error('Invalid Passowrd');
         }

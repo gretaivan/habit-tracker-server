@@ -11,7 +11,6 @@ module.exports = class User {
         return new Promise (async (res, rej) => {
             try {
                 const {username, password} = userData;
-                console.log('Username: ', username, 'Password: ', password)
                 await db.query(`INSERT INTO users (username, password) VALUES ($1, $2);`, [username, password]);
                 res('User created');
             } catch (err) {
@@ -23,7 +22,7 @@ module.exports = class User {
     static findByUsername(username){
         return new Promise (async (res, rej) => {
             try {
-                let userPassword = await db.query(`SELECT password FROM users WHERE username = $1;`, [username]);
+                let userPassword = await db.query(`SELECT id, password FROM users WHERE username = $1;`, [username]);
                 res(userPassword.rows[0]);
             } catch (err) {
                 rej('User not found');
