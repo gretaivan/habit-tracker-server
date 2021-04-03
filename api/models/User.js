@@ -11,8 +11,8 @@ module.exports = class User {
         return new Promise (async (res, rej) => {
             try {
                 const {username, password} = userData;
-                await db.query(`INSERT INTO users (username, password) VALUES ($1, $2);`, [username, password]);
-                res('User created');
+                let user = await db.query(`INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;`, [username, password]);
+                res(user.rows[0]);
             } catch (err) {
                 rej('User could not be created');
             }
