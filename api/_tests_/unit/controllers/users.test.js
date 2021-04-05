@@ -20,6 +20,14 @@ describe('users controller', () => {
             await usersController.create(mockReq, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(201);
         });
+        
+        it('fails to create a new user with a 500 status code', async () => {
+            let testUser = {id: 1, username: "Clifford", password: "BigRedD0g"};
+            jest.spyOn(User, 'create').mockResolvedValue(undefined);
+            const mockReq = {body: testUser};
+            await usersController.create(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+        });
     });
 
     describe('find', () => {
@@ -33,6 +41,25 @@ describe('users controller', () => {
             await usersController.find(mockReq, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(200);
             expect(mockJson).toHaveBeenCalledWith(testUser.id);
+        })
+
+        it('returns an error and a 403 status code with incorrect username', async () => {
+            let testUser = {id: 1, username: "CliffordDog", password: "BigRedD0g"};
+            jest.spyOn(User, 'findByUsername').mockResolvedValue(undefined);
+            const mockReq = {body: testUser};
+            await usersController.find(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(403);
+        })
+
+        it('returns an error and a 403 status code with an incorrect password', async () => {
+            let testUser = {id: 1, username: "Clifford", password: "BigRedDog"};
+            jest.spyOn(User, 'findByUsername').mockResolvedValue({id: testUser.id, password: testUser.password});
+            jest.spyOn(bcrypt, 'compare').mockResolvedValue(new Promise((res, rej) => {
+                res(false);
+            }));
+            const mockReq = {body: testUser};
+            await usersController.find(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(403);
         })
     })
 });

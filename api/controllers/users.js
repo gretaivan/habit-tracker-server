@@ -5,7 +5,10 @@ async function create (req, res) {
     try {
         const salt = await bcrypt.genSalt();
         const hashed = await bcrypt.hash(req.body.password, salt);
-        await User.create({...req.body, password: hashed});
+        const user = await User.create({...req.body, password: hashed});
+        if (!user) {
+            throw new Error("User could not be created");
+        }
         res.status(201).json({msg: 'User created'});
     } catch (err) {
         res.status(500).json({err});
