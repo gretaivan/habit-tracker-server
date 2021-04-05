@@ -23,13 +23,19 @@ class User {
 
         return new Promise(async (res, rej) => {
             try{
+                //check that username is unique
+                let result = await db.query(`SELECT * FROM users WHERE username=($1);`, [data.username]);
+                                           
+                if(result.rows.length > 0){
+                    throw Error('name exists');
+                }
+
                 let userResult = await db.query(`INSERT INTO users (username, password)
                                             VALUES($1, $2) RETURNING *;`, [data.username, data.password]);                  
                 let user = new User(userResult.rows[0]);
-                console.log(user);
                 res(user); 
             } catch(err) {
-                rej('ERROR: user could not be created');
+                rej('ERROR: user could not be created\n' + err);
             }
         });
     };
