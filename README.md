@@ -64,9 +64,7 @@ An app to track your habits.
 //TODO
 1. Create database schema
 //TODO
-### dbCongfig file
-2. Set up  the DB configuration files 
-3. Seed in some data to the DB to start dev process
+
 
 ## Server functionality
 
@@ -81,6 +79,3 @@ An app to track your habits.
 
 ## Wins & Challenges
 
-
-add to jest tests
---setupFiles ./__tests__/integration/config.js

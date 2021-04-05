@@ -1,4 +1,4 @@
-// const request = require("supertest");
+const request = require("supertest");
 let server = require('../../server');
 
 let port = 5000; 
@@ -8,6 +8,10 @@ describe('API server test', () => {
     beforeAll(() => {   
         server = server.listen(port, () => console.log(`[TEST SERVER]: running on port ${port}`));
     });
+
+    beforeEach(async () => {
+        await resetTestDB()
+    })
 
     afterAll(done => {
         server.close(done);
@@ -26,4 +30,25 @@ describe('API server test', () => {
                 .expect('Content-Type', /text\/html/, done)
         });
     });  
+
+    describe('User authentication', () => {
+        
+        describe('register', () => {
+            it('responds with username and code 201', (done) => {
+                let testNewUser = {username: 'newuser', password: 'testing'};
+    
+                request(server)
+                    .post('/auth/register')
+                    .send(testNewUser)
+                    .expect(201, done);
+   
+                // expect(mockCall).toHaveBeenCalledWith(new User(testNewUser));
+                // // const mockReq = { body: testDtestNewUserog }
+                // await auth.post(mockReq, mockRes);
+                // expect(mockStatus).toHaveBeenCalledWith(201);
+                
+           
+            });
+        });
+    });
 });

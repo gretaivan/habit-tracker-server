@@ -5,7 +5,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
-const authRoute = require('./controllers/auth');
+const authRoute = require('./controllers/auth')
 
 server.get('/', (req, res) => {
     res.status(200)
