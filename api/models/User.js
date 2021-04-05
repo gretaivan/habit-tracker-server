@@ -20,8 +20,6 @@ class User {
     }
     // TODO: create
     static create(data){
-
-        console.log(data.password)
         return new Promise(async (res, rej) => {
             try{
                 //check that username is unique
