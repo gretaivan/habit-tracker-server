@@ -40,11 +40,13 @@ An app to track your habits.
 + express v4.17.1
 + pg v8.5.1
 + postgres v11.1
++ bcrypt v6.14.11
 
 ### Development
 + jest v26.6.3
 + nodemon v2.0.7
 + supertest 6.1.3
+
 
 ## Authors
 

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --setupFiles ./__tests__/integration/config.js --watchAll --detectOpenHandles --runInBand --verbose",
     "start": "node app.js",
-    "dev": "nodemon app.js --legacy-watch",
+    "dev": "nodemon app.js",
     "seedDev": "node dbConfig/seedDev.js",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
     "coverage": "jest --testPathPattern=/unit/ --coverage"
@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "pg": "^8.5.1"
