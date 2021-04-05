@@ -23,14 +23,15 @@ describe('User', () => {
     describe('create', () => {
         it('resolves with an id on successful db query', async () => {
             let userData = {username: "Steve", password: "the M0nkey"};
+            jest.spyOn(db, 'query').mockResolvedValueOnce({rows: []});
             jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [{id:1}]});
             const result = await User.create(userData);
             expect(result).toHaveProperty('id');
         });
 
-        it('rejects with an error on unsuccessful db query', async () => {
+        it('rejects when a taken username given', async () => {
             let userData = {username: "SteveyG", password: "Liverp00l"};
-            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [{id:1}]});
             await User.create(userData).catch(e => {
                 expect(e).toEqual("User could not be created");
             });
