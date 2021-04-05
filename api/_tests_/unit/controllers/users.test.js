@@ -1,5 +1,6 @@
 const usersController = require('../../../controllers/users');
 const User = require('../../../models/User');
+const bcrypt = require('bcrypt');
 
 const mockSend = jest.fn();
 const mockJson = jest.fn();
@@ -25,6 +26,9 @@ describe('users controller', () => {
         it('returns a user\'s id with a 200 status code', async () => {
             let testUser = {id: 1, username: "Clifford", password: "BigRedD0g"};
             jest.spyOn(User, 'findByUsername').mockResolvedValue({id: testUser.id, password: testUser.password});
+            jest.spyOn(bcrypt, 'compare').mockResolvedValue(new Promise((res, rej) => {
+                res(true);
+            }));
             const mockReq = {body: testUser};
             await usersController.find(mockReq, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(200);
