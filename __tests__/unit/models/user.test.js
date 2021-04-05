@@ -19,18 +19,15 @@ describe('User model', () => {
         })
     })
 
-    describe('create', ()=> {
+    describe('create', () => {
        
         it('create generates id', async () => {
-            
-            // jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [ { ...userData, id: 1}] });
             const result = await User.create(userData);
             expect(result).toHaveProperty('id'); 
         });
 
         
         it('create resolves with a User instance', async () => {
-            // jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [ { ...userData, id: 1}] });
             let result = await User.create(userData);
             expect(result).toBeInstanceOf(User);
         });

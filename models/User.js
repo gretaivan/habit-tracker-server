@@ -6,7 +6,7 @@ class User {
         this.username = data.username;
         this.password = data.password; 
     }
-    //TODO: get all users
+    //TODO: get all users. SHOULD NOT HAVE A ROUTE THIS IS ONLY FOR USE INSIDE SERVER
     static get all(){
         return new Promise(async(res, rej) => {
             try{
