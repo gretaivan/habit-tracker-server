@@ -13,6 +13,8 @@ class Habit {
     }
 
 
+//create new habit
+
     static create(habit_name, frequency){
         return new Promise (async (resolve, reject) => {
             try {
@@ -31,7 +33,6 @@ class Habit {
 
 
 
-// add habit 
-
+module.exports = Habit;
 
 
