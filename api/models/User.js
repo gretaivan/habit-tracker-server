@@ -7,5 +7,9 @@ class User {
         this.password = data.password; 
     }
 
+    //TODO: create
+
+    //TODO: get all users
+
   
 } 
