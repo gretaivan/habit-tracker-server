@@ -5,6 +5,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 
+const authRoute = require('./controllers/auth')
 
 const habitRoutes = require('./controllers/Habit')
 
@@ -14,6 +15,9 @@ server.get('/', (req, res) => {
     res.status(200)
     .send('Welcome to a habit tracker')
 });
+
+server.use('/auth', authRoute);
+
 
 
 module.exports = server
