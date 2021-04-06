@@ -11,7 +11,7 @@ const resetTestDB = () =>  {
     return new Promise(async (res, rej) => {
         try {
             const db = new Pool(); 
-            await db.query(reset); 
+            await db.query(reset);
             res('[TEST SERVER]: DB has been reset');
         } catch (err) {
             rej('[TEST server]: could not reset DB'); 
