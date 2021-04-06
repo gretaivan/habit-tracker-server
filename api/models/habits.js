@@ -5,10 +5,10 @@ class Habit {
         this.id = data.id;
         this.habit_name = data.habit_name; 
         this.frequency = data.frequency;
-        this.completed = data.completed; 
+        this.completed = data.completed || null; 
         // this.no_times_completed = data.no_times_completed; 
-        this.last_comp = data.last_comp; 
-        this.comp_dates_id = data.comp_dates_id;
+        this.last_comp = data.last_comp || null; 
+        this.comp_dates_id = data.comp_dates_id || null;
         this.user_id = data.user_id //connects habit to specific user
     }
 
