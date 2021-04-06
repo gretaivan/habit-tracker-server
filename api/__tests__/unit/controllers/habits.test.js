@@ -1,8 +1,13 @@
-const habitController = require('../../../controllers/habits') // I want to test this
+const habitsController = require('../../../controllers/habits') // I want to test this
 
 const Habit = require('../../../models/habits') // Need to mock this
 
-jest.mock(Habit)
+
+const mockSend = jest.fn();
+const mockJson = jest.fn();
+const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: jest.fn() }))
+const mockRes = { status: mockStatus }
+
 
 
 //I need to mock the habit.create 
@@ -27,11 +32,24 @@ jest.mock(Habit)
 describe('create', () => {
     test('it returns a new habit with a 201 status code', async () => {
 
+        let testHabit = {
+             
+                habit_name: 'Sleep',
+                frequency: 4,
+                user_id: 3
+              }
+        jest.spyOn(Habit, 'create')
+              .mockResolvedValue(new Habit(testHabit))
+
+        const mockReq = { body: testHabit}
+
+        await habitsController.create(mockReq, mockRes)
+        expect(mockStatus).toHaveBeenCalledWith(201);
+        expect(mockJson).toHaveBeenCalledWith(new Habit(testHabit));
+        })
 
 
 
-
-        await habitController.cre
 
     })
 
@@ -40,6 +58,3 @@ describe('create', () => {
 
 
 
-
-
-})
