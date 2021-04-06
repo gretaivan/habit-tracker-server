@@ -1,3 +1,6 @@
+const express = require('express');
+const router = express.Router();
+
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
@@ -17,5 +20,6 @@ async function find (req, res) {
         res.status(403).json({err});
     }
 }
+
 
 module.exports = {find};
