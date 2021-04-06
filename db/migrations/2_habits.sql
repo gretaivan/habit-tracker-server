@@ -18,4 +18,4 @@ CREATE TABLE completed (
     id serial PRIMARY KEY,
     completed_date date NOT NULL,
     habits_id int NOT NULL
-)
+);
