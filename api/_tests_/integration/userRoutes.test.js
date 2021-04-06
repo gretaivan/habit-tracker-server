@@ -15,12 +15,6 @@ describe('user endpoints', () => {
         api.close(done);
     });
 
-    it('should create a new user', async () => {
-        const res = await global.request(api).post('/users/register').send({username: "Brain", password: "QuagmireLawn"});
-        expect(res.statusCode).toEqual(201);
-        expect(res.body).toHaveProperty('msg');
-    });
-
     it('should find a user given a valid username and password and return the id', async () => {
         jest.spyOn(bcrypt, 'compare').mockResolvedValue(new Promise((res, rej) => {
             res(true);

@@ -1,20 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
-async function create (req, res) {
-    try {
-        const salt = await bcrypt.genSalt();
-        const hashed = await bcrypt.hash(req.body.password, salt);
-        const user = await User.create({...req.body, password: hashed});
-        if (!user) {
-            throw new Error("User could not be created");
-        }
-        res.status(201).json({msg: 'User created'});
-    } catch (err) {
-        res.status(500).json({err});
-    }
-}
-
 async function find (req, res) {
     try {
         const user = await User.findByUsername(req.body.username);
@@ -32,4 +18,4 @@ async function find (req, res) {
     }
 }
 
-module.exports = {create, find};
+module.exports = {find};

@@ -12,24 +12,6 @@ describe('users controller', () => {
 
     afterAll(() => jest.resetAllMocks());
 
-    describe('create', () => {
-        it('creates a new user with a 201 status code', async () => {
-            let testUser = {id: 1, username: "Clifford", password: "BigRedD0g"};
-            jest.spyOn(User, 'create').mockResolvedValue(new User(testUser));
-            const mockReq = {body: testUser};
-            await usersController.create(mockReq, mockRes);
-            expect(mockStatus).toHaveBeenCalledWith(201);
-        });
-        
-        it('fails to create a new user with a 500 status code', async () => {
-            let testUser = {id: 1, username: "Clifford", password: "BigRedD0g"};
-            jest.spyOn(User, 'create').mockResolvedValue(undefined);
-            const mockReq = {body: testUser};
-            await usersController.create(mockReq, mockRes);
-            expect(mockStatus).toHaveBeenCalledWith(500);
-        });
-    });
-
     describe('find', () => {
         it('returns a user\'s id with a 200 status code', async () => {
             let testUser = {id: 1, username: "Clifford", password: "BigRedD0g"};
