@@ -1,13 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
-const Habit = require('../models/Habits')
+const Habit = require('../models/habits')
 
-router.get('/', async (req, res) => {
+
+
+async function create(req,res){
     try {
-        const habits = await Habit.all
-        res.json(habits)
-    } catch (err) {
-        res.status(500).send({ err })
+        const habit = await Habit.create(req.body.habit_name, req.body.frequency, req.body.user_id)
+        res.status(201).json(habit)
+    } catch(err) {
+        console.log(err)
+        res.status(404).json({err})
     }
-})
+}
+
+
+
+module.exports = {create };
+
