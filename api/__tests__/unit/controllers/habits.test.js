@@ -10,6 +10,18 @@ const mockRes = { status: mockStatus }
 
 
 
+describe('all', () => {
+    test('it returns habits with a 200 status code', async () => {
+        jest.spyOn(Habit, 'all', 'get')
+             .mockResolvedValue(['habit1', 'habit2']);
+        await habitsController.all(null, mockRes);
+        expect(mockStatus).toHaveBeenCalledWith(200);
+        expect(mockJson).toHaveBeenCalledWith(['habit1', 'habit2']);
+    })
+});
+
+
+
 describe('create', () => {
     test('it returns a new habit with a 201 status code', async () => {
 
