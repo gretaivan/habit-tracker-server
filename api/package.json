@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --setupFiles ./__tests__/integration/config.js --watchAll --detectOpenHandles --runInBand --verbose",
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "dev": "nodemon app.js --legacy-watch",
     "seedDev": "node dbConfig/seedDev.js",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
