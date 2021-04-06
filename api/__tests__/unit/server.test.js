@@ -9,6 +9,10 @@ describe('API server test', () => {
         server = server.listen(port, () => console.log(`[TEST SERVER]: running on port ${port}`));
     });
 
+    beforeEach(async () => {
+        await resetTestDB()
+    })
+
     afterAll(done => {
         server.close(done);
     });
@@ -25,7 +29,7 @@ describe('API server test', () => {
                 .get('/')
                 .expect('Content-Type', /text\/html/, done)
         });
-    });   
+    });  
 
     describe('User authentication', () => {
         
