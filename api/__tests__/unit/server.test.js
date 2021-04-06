@@ -34,19 +34,20 @@ describe('API server test', () => {
     describe('User authentication', () => {
         
         describe('register', () => {
-            it('responds with username and code 201', (done) => {
+            it('responds in json format with username and code 201', (done) => {
                 let testNewUser = {username: 'newuser', password: 'testing'};
-    
+
                 request(server)
                     .post('/auth/register')
                     .send(testNewUser)
-                    .expect(201, done);
-   
+                    .expect(201)
+                    .expect('Content-Type', /json/)
+                    .expect({msg: `Registration for ${testNewUser.username} has been successful!`}, done)
+
                 // expect(mockCall).toHaveBeenCalledWith(new User(testNewUser));
                 // // const mockReq = { body: testDtestNewUserog }
                 // await auth.post(mockReq, mockRes);
-                // expect(mockStatus).toHaveBeenCalledWith(201);
-                
+                // expect(mockStatus).toHaveBeenCalledWith(201)
            
             });
         });
