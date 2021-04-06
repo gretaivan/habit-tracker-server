@@ -18,7 +18,7 @@ services:
         volumes:
             - "dbdata:/var/lib/postgresql/data"
         environment: 
-            - POSTGRES_DB=habit-dev
+            - POSTGRES_DB=habit_dev
             - POSTGRES_USER=admin
             - POSTGRES_PASSWORD=pass
 volumes:

@@ -40,11 +40,13 @@ An app to track your habits.
 + express v4.17.1
 + pg v8.5.1
 + postgres v11.1
++ bcrypt v6.14.11
 
 ### Development
 + jest v26.6.3
 + nodemon v2.0.7
 + supertest 6.1.3
+
 
 ## Authors
 
@@ -62,9 +64,7 @@ An app to track your habits.
 //TODO
 1. Create database schema
 //TODO
-### dbCongfig file
-2. Set up  the DB configuration files 
-3. Seed in some data to the DB to start dev process
+
 
 ## Server functionality
 
@@ -79,6 +79,3 @@ An app to track your habits.
 
 ## Wins & Challenges
 
-
-add to jest tests
---setupFiles ./__tests__/integration/config.js
