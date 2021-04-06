@@ -1,15 +1,15 @@
-INSERT INTO users (username, password, habit_id)
+INSERT INTO users (username, password)
 VALUES
-('trumpetgems', 'secret123', 'habit1' ),
-('sparrow', 'secret789', 'habit2' )
+('trumpetgems', 'secret123' ),
+('sparrow', 'secret789')
 
 
 
-INSERT INTO habit_type (habit_id, user, frequency, completed_today, num_times_comp, last_comp)
+INSERT INTO habits (habit_name, frequency, user_id, completed, last_comp_date, comp_dates_id)
 VALUES
-('habit1', 'coding', 'everyday', 'true', 5, 2020-10-05 )
+('coding', 1, 2, true, 2020-10-05, 1 )
 
 
-INSERT INTO comp_dates (last_comp)
+INSERT INTO completed (completed_date, habits_id)
 VALUES
-(2020-10-05, 2020-11-05)
+(2020-10-05, 1)

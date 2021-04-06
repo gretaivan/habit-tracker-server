@@ -1,18 +1,21 @@
-DROP TABLE IF EXISTS habit_type;
-DROP TABLE IF EXISTS comp_dates;
+DROP TABLE IF EXISTS habits;
+DROP TABLE IF EXISTS completed;
 
 
-CREATE TABLE habit_type (
-    habit_id varchar REFERENCES users(habit_id),
-    userId varchar(25) REFERENCES users(id),
-    frequency varchar(30),
-    completed_today boolean,
-    num_times_comp int,
-    last_comp date
-);
+CREATE TABLE habits (
+    id serial PRIMARY KEY,
+    habit_name VARCHAR(500) NOT NULL,
+    frequency INT NOT NULL,
+    user_id INT NOT NULL,
+    completed BOOLEAN,
+    last_comp_date DATE, 
+    comp_dates_id INT
+    
+    );
 
-CREATE TABLE comp_dates (
-    last_comp date REFERENCES habit_type(last_comp)
+
+CREATE TABLE completed (
+    id serial PRIMARY KEY,
+    completed_date date NOT NULL,
+    habits_id int NOT NULL
 )
-
-
