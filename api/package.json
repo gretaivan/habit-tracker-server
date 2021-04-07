@@ -9,11 +9,15 @@
     "dev": "nodemon app.js",
     "seedDev": "node dbConfig/seedDev.js",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
-    "coverage": "jest --testPathPattern=/unit/ --coverage"
+    "coverage": "jest --setupFiles ./__tests__/integration/config.js --testPathPattern=/unit/ --coverage"
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/integration/config.js"
+    ],
+    "watchPathIgnorePatterns": [
       "/node_modules/",
       "/__tests__/integration/config.js"
     ]

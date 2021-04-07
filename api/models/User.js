@@ -49,6 +49,21 @@ class User {
             }
         })
     }
-}
+
+    static streak(frequency) {
+        return new Promise(async (res, rej) => {
+            try {
+                // query to get the streak //
+                let streak = await db.query(``)
+            } catch(err) {
+
+            }
+        })
+    }
+    
+} 
 
 module.exports = User;
+
+
+
