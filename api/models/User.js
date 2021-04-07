@@ -39,16 +39,20 @@ class User {
         });
     };
 
-    static findByUsername(username){
-        return new Promise (async (res, rej) => {
+    static streak(frequency) {
+        return new Promise(async (res, rej) => {
             try {
-                let userPassword = await db.query(`SELECT id, password FROM users WHERE username = $1;`, [username]);
-                res(userPassword.rows[0]);
-            } catch (err) {
-                rej('User not found');
+                // query to get the streak //
+                let streak = await db.query(``)
+            } catch(err) {
+
             }
         })
     }
-}
+    
+} 
 
 module.exports = User;
+
+
+
