@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 
 async function find (req, res) {
     try {
+        console.log("[Server]: Login request")
         const user = await User.findByUsername(req.body.username);
         if (!user) {
             throw new Error('Invalid Username')
