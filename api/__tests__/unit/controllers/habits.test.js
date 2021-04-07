@@ -7,14 +7,15 @@ const mockSend = jest.fn();
 const mockJson = jest.fn();
 const mockStatus = jest.fn(code => ({ send: mockSend, json: mockJson, end: jest.fn() }))
 const mockRes = { status: mockStatus }
+const mockReq = {params: {id: 1} };
 
 
 
 describe('all', () => {
     test('it returns habits with a 200 status code', async () => {
-        jest.spyOn(Habit, 'all', 'get')
+        jest.spyOn(Habit, 'all')
              .mockResolvedValue(['habit1', 'habit2']);
-        await habitsController.all(null, mockRes);
+        await habitsController.all(mockReq, mockRes);
         expect(mockStatus).toHaveBeenCalledWith(200);
         expect(mockJson).toHaveBeenCalledWith(['habit1', 'habit2']);
     })
