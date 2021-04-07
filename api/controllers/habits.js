@@ -27,6 +27,20 @@ async function create(req,res){
 }
 
 
+async function findHabitById(req,res){
 
-module.exports = {create, all };
+    try{
+        const habit = await Habit.findHabitById(parseInt(req.params.id))
+        res.json(habit)
+    }
+
+    catch(err){
+        res.status(500).json({err})
+}
+
+}
+
+
+
+module.exports = {create, all, findHabitById };
 
