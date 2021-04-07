@@ -12,7 +12,10 @@ async function find (req, res) {
         }
         const authed = await bcrypt.compare(req.body.password, user.password);
         if (!!authed) {
-            res.status(200).json(user.id);
+            res.status(200).json({ 
+                                id: user.id,
+                                username: user.username
+                            });
         } else {
             throw new Error('Invalid Password');
         }

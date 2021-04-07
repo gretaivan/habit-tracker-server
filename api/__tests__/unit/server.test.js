@@ -42,13 +42,8 @@ describe('API server test', () => {
                     .send(testNewUser)
                     .expect(201)
                     .expect('Content-Type', /json/)
-                    .expect({msg: `Registration for ${testNewUser.username} has been successful!`}, done)
-
-                // expect(mockCall).toHaveBeenCalledWith(new User(testNewUser));
-                // // const mockReq = { body: testDtestNewUserog }
-                // await auth.post(mockReq, mockRes);
-                // expect(mockStatus).toHaveBeenCalledWith(201)
-           
+                    .expect({msg: `Registration for ${testNewUser.username} has been successful!`}, done);
+                    
             });
         });
     });
