@@ -46,42 +46,48 @@ static get all(){
     }
 
 // streak update function
-    static updateStreak(userid, habit_name) {
-        return new Promise(async (res, rej) => {
+    static updateStreak(user_id, habit_name) {
+        return new Promise(async (resolve, reject) => {
             try {
             // select frequency and difference from database and store as a variable for each userid and habit // 
-                const frequency = await db.query(`SELECT freqency from habits
-                                                WHERE userid = ($1)
+                const frequency = await db.query(`SELECT frequency from habits
+                                                WHERE user_id = ($1)
                                                 AND habit_name = ($2)
-                                                AND completed = True;`, [data.userid, data.habit_name])
+                                                AND completed = True;`, [user_id, habit_name])
                                                 
                 const difference = await db.query(`SELECT NOW() - last_comp_date AS difference
                                                 FROM habits 
-                                                HERE userid = ($1)
+                                                WHERE user_id = ($1)
                                                 AND habit_name = ($2)
-                                                AND completed = True;`, [data.userid, data.habit_name])
+                                                AND completed = True;`, [user_id, habit_name])
             
+                
             // check if the frequency is greater than difference from sql query //
+            let incrementedData;
+            let restartData;
+
             if (frequency >= difference) {
 
             // if frequency greater or equal to difference, found by last comp date and now, then increment by one //
-                incrementData = await db.query(`UPDATE habits
+                incrementedData = await db.query(`UPDATE habits
                                         SET streak = streak+1
-                                        WHERE userid = ($1)
+                                        WHERE user_id = ($1)
                                         AND habit_name = ($2)
-                                        AND completed = True;`, [data.habit_name, data.userid])
+                                        AND completed = True
+                                        RETURNING streak;`, [ user_id, habit_name])
             } else {
             // if frequency greater or equal to difference, found by last comp date and now, then update to 0, restart //
                 restartData = await db.query(`UPDATE habits
                                         SET streak = 0
-                                        WHERE userid = ($1)
+                                        WHERE user_id = ($1)
                                         AND habit_name = ($2)
-                                        AND completed = FALSE;`, [data.habit_name, data.userid])
+                                        AND completed = FALSE;`, [user_id, habit_name])
             }
-            if (!incrementData.length) { 
-            resolve(incrementData) }
+            //console.log(incrementedData.rows[0])
+                if (!!incrementedData.rows[0]) { 
+                resolve(incrementedData) } 
             } catch (error) {
-                rej('ERROR: streak could not be updated\n' + err);
+                reject('ERROR: streak could not be updated\n' + err);
             }
         })
     }
