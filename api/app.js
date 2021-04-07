@@ -8,10 +8,11 @@ app.listen(port, () => console.log(`[SERVER] Habit is listening on port:  ${port
 const streak = require('./models/habits');
 
 async function testing(){
-let test = await streak.updateStreak(1, 'coding')
-return test
+    //2 'coding'
+    let test = await streak.updateStreak(2, 'sleeping')
+    await console.log(test)
+
 };
 
-testing()
-
-console.log(await testing())
+testing();
+// console.log(testing())
