@@ -45,8 +45,46 @@ static get all(){
         });
     }
 
+
+
+
+    static async findHabitById(id){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let habitData = await db.query(`SELECT * FROM habits WHERE id = $1;`, [ id ]);
+                let habit = new Habit(habitData.rows[0]);
+                resolve (habit);
+            } catch (err) {
+                reject('Habit not found');
+            }
+        })
+    }
+
+
+    update() {
+        return new Promise (async (resolve, reject) => {
+            try {
+                let updatedHabitData = await db.query(`UPDATE habits 
+                                                    SET completed = True, 
+                                                    last_comp = CAST(GETDATE() as date) 
+                                                    WHERE id = $1 RETURNING *;`, [ this.id ]);
+                let updatedHabit = new Habit(updatedHabitData.rows[0]);
+                resolve (updatedHabit);
+            } catch (err) {
+                reject('Error updating Habit');
+            }
+        });
+    }
+
+
+
+
+}
   
-} 
+
+
+
+
 
 
 
