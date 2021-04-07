@@ -17,6 +17,7 @@ async function all (req, res) {
 
 async function create(req,res){
     try {
+
         const habit = await Habit.create(req.body.habit_name, req.body.frequency, req.body.user_id)
         res.status(201).json(habit)
     } catch(err) {
