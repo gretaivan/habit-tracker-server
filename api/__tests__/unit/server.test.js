@@ -41,9 +41,8 @@ describe('API server test', () => {
                     .post('/auth/register')
                     .send(testNewUser)
                     .expect(201)
-                    .expect('Content-Type', /json/)
-                    .expect({msg: `Registration for ${testNewUser.username} has been successful!`}, done);
-                    
+                    .expect('Content-Type', /json/, done);
+
             });
         });
     });
