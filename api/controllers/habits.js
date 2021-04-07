@@ -6,9 +6,11 @@ const Habit = require('../models/habits')
 
 async function all (req, res) {
     try {
-        const habits = await Habit.all;
+        console.log(req.params.id)
+        const habits = await Habit.all(parseInt(req.params.id));
         res.status(200).json(habits)
     } catch (err) {
+        console.log(err)
         res.status(500).json({err})
     }
 }
