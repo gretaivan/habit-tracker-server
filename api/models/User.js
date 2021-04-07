@@ -39,6 +39,17 @@ class User {
         });
     };
 
+    static findByUsername(username){
+        return new Promise (async (res, rej) => {
+            try {
+                let userPassword = await db.query(`SELECT id, password FROM users WHERE username = $1;`, [username]);
+                res(userPassword.rows[0]);
+            } catch (err) {
+                rej('User not found');
+            }
+        })
+    }
+
     static streak(frequency) {
         return new Promise(async (res, rej) => {
             try {

@@ -21,7 +21,7 @@ describe('user endpoints', () => {
         }));
         const res = await global.request(api).post('/users/login').send({username: 'user_test', password: "test123"});
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toEqual(1);
+        expect(res.body).toEqual({username: "user_test", id: 1});
     });
 
     it('should not find a user given an invalid password', async () => {
