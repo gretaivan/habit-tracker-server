@@ -54,7 +54,7 @@ static get all(){
                                                 WHERE userid = ($1)
                                                 AND habit_name = ($2)
                                                 AND completed = True;`, [data.userid, data.habit_name])
-                                                
+
                 const difference = await db.query(`SELECT NOW() - last_comp_date AS difference
                                                 FROM habits 
                                                 HERE userid = ($1)
@@ -69,7 +69,7 @@ static get all(){
                                         SET streak = streak+1
                                         WHERE userid = ($1)
                                         AND habit_name = ($2)
-                                        AND completed = True;`, [data.habit_name, data.userid])
+                                        AND completed = True;`, [data.userid, data.habit_name])
             } else {
             // if frequency greater or equal to difference, found by last comp date and now, then update to 0, restart //
                 restartData = await db.query(`UPDATE habits
