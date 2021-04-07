@@ -32,19 +32,14 @@ static get all(){
 
 //create new habit
 
-    static async create(habitData){
+    static async create(habit_name, frequency, user_id){
         return new Promise (async (resolve, reject) => {
             try {
-
-               let {habit_name, frequency, user_id} = habitData
                 let result = await db.query(`INSERT INTO habits (habit_name, frequency, user_id) VALUES ($1, $2, $3) RETURNING *;`, [ habit_name, frequency, user_id ]);
-                // I want to get back habit Data with an id, habit_name, frequency, comp_dates_id, the rest need to start at 0 
-                console.log(result.rows[0])
+            // I want to get back habit Data with an id, habit_name, frequency, comp_dates_id, the rest need to start at 0 
                 let newHabit = new Habit(result.rows[0]);
-                console.log(newHabit)
                 resolve (newHabit);
             } catch (err) {
-                console.log(err)
                 reject('Error creating habit');
             }
         });
