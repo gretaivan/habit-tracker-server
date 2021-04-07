@@ -41,6 +41,21 @@ async function findHabitById(req,res){
 }
 
 
+async function updateHabit(req,res){
+    try{
+        const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
+        await habitToUpdate.update()
+        res.json(habitToUpdate)
 
-module.exports = {create, all, findHabitById };
+    }
+
+    catch{
+
+
+    }
+}
+
+
+
+module.exports = {create, all, findHabitById, updateHabit };
 

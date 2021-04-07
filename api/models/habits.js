@@ -7,7 +7,7 @@ class Habit {
         this.frequency = data.frequency;
         this.completed = data.completed || null; 
         // this.no_times_completed = data.no_times_completed; 
-        this.last_comp = data.last_comp || null; 
+        this.last_comp_date = data.last_comp_date || null; 
         this.comp_dates_id = data.comp_dates_id || null;
         this.user_id = data.user_id //connects habit to specific user
     }
@@ -66,7 +66,7 @@ static get all(){
             try {
                 let updatedHabitData = await db.query(`UPDATE habits 
                                                     SET completed = True, 
-                                                    last_comp = CAST(GETDATE() as date) 
+                                                    last_comp_date = NOW()
                                                     WHERE id = $1 RETURNING *;`, [ this.id ]);
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
                 resolve (updatedHabit);
@@ -75,8 +75,6 @@ static get all(){
             }
         });
     }
-
-
 
 
 }
