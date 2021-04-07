@@ -13,6 +13,23 @@ describe('Habit', () => {
     
     afterAll(() => jest.resetAllMocks())
 
+describe('all', () => {
+        test('it resolves with habits on successful db query', async () => {
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({ rows: [{}, {}, {}, {}]});
+            const all = await Habit.all;
+            expect(all).toHaveLength(4)
+        })
+
+        test('it resolves with a habit with a property of id on a successful db query', async () => {
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({ rows: [{}]});
+            const all = await Habit.all;
+            expect(all[0]).toHaveProperty('id')
+ 
+    });
+})
+
     describe('create', () => {
         test('it resolves with habit on successful db query', async () => {
             let habitData = { habit_name: "Sleep", frequency: 4, user_id:3}
