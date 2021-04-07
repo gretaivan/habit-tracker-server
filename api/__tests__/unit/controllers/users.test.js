@@ -22,7 +22,7 @@ describe('users controller', () => {
             const mockReq = {body: testUser};
             await usersController.find(mockReq, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(200);
-            expect(mockJson).toHaveBeenCalledWith(testUser.id);
+            expect(mockJson).toHaveBeenCalledWith({username: "Clifford", id: testUser.id});
         })
 
         it('returns an error and a 403 status code with incorrect username', async () => {
