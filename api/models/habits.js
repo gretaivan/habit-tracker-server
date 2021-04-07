@@ -77,11 +77,14 @@ static get all(){
 
 
 // streak update function
+
+
     static updateStreak(user_id, habit_name) {
         return new Promise(async (resolve, reject) => {
             try {
             // select frequency and difference from database and store as a variable for each userid and habit // 
-                const frequency = await db.query(`SELECT frequency from habits
+            let frequency;  
+            frequency = await db.query(`SELECT frequency from habits
                                                 WHERE user_id = ($1)
                                                 AND habit_name = ($2)
                                                 AND completed = True;`, [user_id, habit_name])

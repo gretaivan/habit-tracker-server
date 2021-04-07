@@ -41,7 +41,7 @@ describe('all', () => {
         test('it gets the frequency data from each users habits if they are true', async () =>{
             let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true}
             jest.spyOn(db, 'query')
-                .mockResolvedValueOnce({rows: []})
+                .mockResolvedValueOnce({rows: [{...habitData, }]})
             
         })
     })
