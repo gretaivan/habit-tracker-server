@@ -18,9 +18,7 @@ static get all(){
     return new Promise (async (resolve, reject) => {
         try {
             let habitData = await db.query('SELECT * FROM habits;');
-            console.log(habitData)
             let habits = habitData.rows.map(h => new Habit(h));
-            console.log(habits)
             resolve (habits);
         } catch (err) {
             reject('Habit not found');
