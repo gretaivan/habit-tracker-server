@@ -39,7 +39,7 @@ async function updateHabit(req,res){
     try{
         const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
         const updatedHabit = await habitToUpdate.update()
-        res.status(204).json(updatedHabit)
+        res.status(200).json(updatedHabit)
 
     } catch(err){
 
