@@ -67,7 +67,6 @@ describe('all', () => {
                 .mockResolvedValueOnce(undefined)
                 .mockResolvedValueOnce(undefined)
             await Habit.updateStreak(habitData.user_id, habitData.habit_name).catch(e => {
-                console.log(e)
                 expect(e).toEqual('ERROR: streak could not be updated');
             })
         })

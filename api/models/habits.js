@@ -18,9 +18,7 @@ class Habit {
 static all(id){
     return new Promise (async (resolve, reject) => {
         try {
-            console.log(id)
             let habitData = await db.query(`SELECT * FROM habits WHERE user_id = $1;`, [id]);
-            console.log(habitData)
         
             let habits = habitData.rows.map(h => new Habit(h));
             

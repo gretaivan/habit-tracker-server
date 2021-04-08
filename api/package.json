@@ -15,7 +15,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/__tests__/integration/config.js"
+      "/__tests__/integration/config.js",
+      "/dbConfig/init.js"
     ],
     "watchPathIgnorePatterns": [
       "/node_modules/",
