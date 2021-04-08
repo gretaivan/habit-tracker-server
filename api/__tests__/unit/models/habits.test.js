@@ -111,6 +111,17 @@ describe('all', () => {
             const result = await Habit.updateStreak(habitData.user_id, habitData.habit_name);
             expect(result.streak).toEqual(updatedStreak);
         })
+
+        test('it increments the streak value if date is within limit and difference is null', async () =>{
+            let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
+            let updatedStreak = habitData.streak + 1;
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [{frequency: 1}]})
+                .mockResolvedValueOnce({rows: [{difference: null}]})
+                .mockResolvedValueOnce({rows: [{streak: updatedStreak}]})
+            const result = await Habit.updateStreak(habitData.user_id, habitData.habit_name);
+            expect(result.streak).toEqual(updatedStreak);
+        })
         
         test('it sets streak value to 0 if date is out of limit', async () =>{
             let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
@@ -140,6 +151,15 @@ describe('all', () => {
             let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [{frequency: 1, difference: {days: 1}}]})
+                .mockResolvedValueOnce({rows: [{completed: false}]})
+            const result = await Habit.resetCompleted(habitData.user_id, habitData.habit_name);
+            expect(result).toEqual(false);
+        })
+
+        test('sets difference.days to 0 if difference is null and passes', async () => {
+            let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [{frequency: 1, difference: null}]})
                 .mockResolvedValueOnce({rows: [{completed: false}]})
             const result = await Habit.resetCompleted(habitData.user_id, habitData.habit_name);
             expect(result).toEqual(false);
