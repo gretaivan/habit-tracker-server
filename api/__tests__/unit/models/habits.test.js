@@ -1,9 +1,6 @@
 const Habit = require('../../../models/habits')
 
-
-
 const db = require('../../../dbConfig/init');
-
 
 const pg = require('pg');
 jest.mock('pg');
@@ -40,6 +37,15 @@ describe('all', () => {
         })
     });
 
-
+    describe('updateStreak', () => {
+        test('it gets the frequency data from each users habits if they are true', async () =>{
+            let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true}
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: []})
+            
+        })
+    })
 
 })
+
+

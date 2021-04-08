@@ -1,6 +1,4 @@
 DROP TABLE IF EXISTS habits;
-DROP TABLE IF EXISTS completed;
-
 
 CREATE TABLE habits (
     id serial PRIMARY KEY,
@@ -8,9 +6,12 @@ CREATE TABLE habits (
     frequency INT NOT NULL,
     user_id INT NOT NULL,
     completed BOOLEAN,
-    last_comp_date DATE
+    last_comp_date DATE,
+    streak INT DEFAULT 0
     );
 
+
+DROP TABLE IF EXISTS completed;
 
 CREATE TABLE completed (
     id serial PRIMARY KEY,
