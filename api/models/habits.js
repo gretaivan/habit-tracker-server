@@ -123,7 +123,7 @@ static all(id){
                     resolve(restartData.rows[0]) 
                 } 
             } catch (error) {
-                reject('ERROR: streak could not be updated\n' + error);
+                reject('ERROR: streak could not be updated');
             }
         })
     }
@@ -149,7 +149,7 @@ static all(id){
                 resolve(updateData.rows[0].completed)
             }
             catch (err) {
-                reject('ERROR: completed could not be updated\n' + err);
+                reject('ERROR: completed could not be updated');
             }
         })
     }
