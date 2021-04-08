@@ -18,9 +18,7 @@ class Habit {
 static all(id){
     return new Promise (async (resolve, reject) => {
         try {
-            console.log(id)
             let habitData = await db.query(`SELECT * FROM habits WHERE user_id = $1;`, [id]);
-            console.log(habitData)
         
             let habits = habitData.rows.map(h => new Habit(h));
             
@@ -118,8 +116,7 @@ static all(id){
                                             AND habit_name = ($2)
                                             RETURNING streak;`, [ user_id, habit_name])
                     //resolve
-                    if (!!incrementedData.rows[0]) { 
-                        resolve(incrementedData.rows[0]) } 
+                    resolve(incrementedData.rows[0])
                 } else {
                 // if frequency greater or equal to difference, found by last comp date and now, then update to 0, restart //
                     restartData = await db.query(`UPDATE habits
@@ -134,7 +131,7 @@ static all(id){
                     resolve(restartData.rows[0]) 
                 } 
             } catch (error) {
-                reject('ERROR: streak could not be updated\n' + error);
+                reject('ERROR: streak could not be updated');
             }
         })
     }
@@ -162,7 +159,7 @@ static all(id){
                 resolve(updateData.rows[0].completed)
             }
             catch (err) {
-                reject('ERROR: completed could not be updated\n' + err);
+                reject('ERROR: completed could not be updated');
             }
         })
     }

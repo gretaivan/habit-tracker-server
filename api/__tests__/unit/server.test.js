@@ -1,5 +1,6 @@
 const request = require("supertest");
 let server = require('../../server');
+const User = require('../../models/User');
 
 let port = 5000; 
 
@@ -44,6 +45,15 @@ describe('API server test', () => {
                     .expect('Content-Type', /json/, done);
 
             });
+            it('responds in json format with error and code 500', (done) => {
+                let testNewUser = {username: 'newuser', password: 'testing'};
+                jest.spyOn(User, 'create').mockRejectedValue('ERROR: user could not be created')
+                request(server)
+                    .post('/auth/register')
+                    .send(testNewUser)
+                    .expect(500)
+                    .expect('Content-Type', /json/, done);
+            })
         });
     });
 });
