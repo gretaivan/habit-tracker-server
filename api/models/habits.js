@@ -107,8 +107,7 @@ static all(id){
                                             AND habit_name = ($2)
                                             RETURNING streak;`, [ user_id, habit_name])
                     //resolve
-                    if (!!incrementedData.rows[0]) { 
-                        resolve(incrementedData.rows[0]) } 
+                    resolve(incrementedData.rows[0])
                 } else {
                 // if frequency greater or equal to difference, found by last comp date and now, then update to 0, restart //
                     restartData = await db.query(`UPDATE habits

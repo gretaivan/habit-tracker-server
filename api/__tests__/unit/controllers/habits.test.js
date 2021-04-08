@@ -22,27 +22,48 @@ describe('Habit Controller', () => {
             expect(mockStatus).toHaveBeenCalledWith(200);
             expect(mockJson).toHaveBeenCalledWith(['habit1', 'habit2']);
         })
+        
+        test('returns error and 500 status code with invalid id', async () => {
+            let userId = 1;
+            jest.spyOn(Habit, 'all').mockRejectedValue("Habit not found");
+            const mockReq = {params: {id: userId}};
+            await habitsController.all(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+            expect(mockJson).toHaveBeenCalledWith({err: "Habit not found"});
+        })
     });
-
-
 
     describe('create', () => {
         test('it returns a new habit with a 201 status code', async () => {
 
-            let testHabit = {
-                
+            let testHabit = {                
                     habit_name: 'Sleep',
                     frequency: 4,
                     user_id: 3
                 }
-            jest.spyOn(Habit, 'create')
-                .mockResolvedValue(new Habit(testHabit))
+            jest.spyOn(Habit, 'create').mockResolvedValue(new Habit(testHabit))
 
             const mockReq = { body: testHabit}
 
             await habitsController.create(mockReq, mockRes)
             expect(mockStatus).toHaveBeenCalledWith(201);
             expect(mockJson).toHaveBeenCalledWith(new Habit(testHabit));
+        });
+        
+        test('it returns an error with a 404 status code with invalid id', async () => {
+            let testHabit = {
+                
+                    habit_name: 'Sleep',
+                    frequency: 4,
+                    user_id: 3
+                }
+            jest.spyOn(Habit, 'create').mockRejectedValue("Error creating Habit")
+
+            const mockReq = { body: testHabit}
+
+            await habitsController.create(mockReq, mockRes)
+            expect(mockStatus).toHaveBeenCalledWith(404);
+            expect(mockJson).toHaveBeenCalledWith({err: "Error creating Habit"});
         })
     })
 
@@ -115,5 +136,4 @@ describe('Habit Controller', () => {
             expect(mockJson).toHaveBeenCalledWith({err: "Habit not found"});
         })
     })
-
 })

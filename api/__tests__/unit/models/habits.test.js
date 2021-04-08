@@ -5,7 +5,7 @@ const db = require('../../../dbConfig/init');
 const pg = require('pg');
 jest.mock('pg');
 
-describe('Habit', () => {
+describe('Habit Model', () => {
     beforeEach(() => jest.clearAllMocks())
     
     afterAll(() => jest.resetAllMocks())
@@ -23,8 +23,14 @@ describe('all', () => {
                 .mockResolvedValueOnce({ rows: [{}]});
             const all = await Habit.all(2);
             expect(all[0]).toHaveProperty('id')
- 
-    });
+        });
+        
+        test('it resolves with an errpr on unsuccessful db query', async () => {
+            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            await Habit.all(2).catch(e => {
+                expect(e).toEqual('Habit not found');
+            });
+        })
 })
 
     describe('create', () => {
@@ -34,6 +40,14 @@ describe('all', () => {
                 .mockResolvedValueOnce({rows: [{...habitData, id: 1}]});
             const result = await Habit.create(habitData);
             expect(result).toHaveProperty('id')
+        })
+        
+        test('it resolves with an errpr on unsuccessful db query', async () => {
+            let habitData = {id: 2, habit_name: "Sleep", frequency: 4, user_id:3};
+            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            await Habit.create(habitData).catch(e => {
+                expect(e).toEqual('Error creating habit');
+            });
         })
     });
 
@@ -82,6 +96,17 @@ describe('all', () => {
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({rows: [{frequency: 1}]})
                 .mockResolvedValueOnce({rows: [{difference: {days: 1}}]})
+                .mockResolvedValueOnce({rows: [{streak: updatedStreak}]})
+            const result = await Habit.updateStreak(habitData.user_id, habitData.habit_name);
+            expect(result.streak).toEqual(updatedStreak);
+        })
+
+        test('it increments the streak value if date is within limit and difference.days is undefined', async () =>{
+            let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
+            let updatedStreak = habitData.streak + 1;
+            jest.spyOn(db, 'query')
+                .mockResolvedValueOnce({rows: [{frequency: 1}]})
+                .mockResolvedValueOnce({rows: [{difference: {hours: 9}}]})
                 .mockResolvedValueOnce({rows: [{streak: updatedStreak}]})
             const result = await Habit.updateStreak(habitData.user_id, habitData.habit_name);
             expect(result.streak).toEqual(updatedStreak);
