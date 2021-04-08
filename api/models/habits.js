@@ -67,11 +67,15 @@ static all(id){
     update() {
         return new Promise (async (resolve, reject) => {
             try {
+                console.log("UPDATING THE Completed: ")
+                
                 let updatedHabitData = await db.query(`UPDATE habits 
                                                     SET completed = True, 
                                                     last_comp_date = NOW()
                                                     WHERE id = $1 RETURNING *;`, [ this.id ]);
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
+
+                console.log(updatedHabit)
                 resolve (updatedHabit);
             } catch (err) {
                 reject('Error updating Habit');
@@ -85,6 +89,9 @@ static all(id){
     static updateStreak(user_id, habit_name) {
         return new Promise(async (resolve, reject) => {
             try {
+
+                console.log("UPDATING STREAK")
+                
             // select frequency and difference from database and store as a variable for each userid and habit // 
                 const frequency = await db.query(`SELECT frequency from habits
                                                 WHERE user_id = $1
@@ -100,7 +107,9 @@ static all(id){
                 let incrementedData;
                 let restartData;
 
-                if (frequency.rows[0].frequency >= (difference.rows[0].difference.days || 0)) {
+                let differenceResult = difference.rows[0].difference === null ? 0 : difference.rows[0].difference.days
+
+                if (frequency.rows[0].frequency >= (differenceResult || 0)) {
 
                 // if frequency greater or equal to difference, found by last comp date and now, then increment by one //
                     incrementedData = await db.query(`UPDATE habits
@@ -119,7 +128,9 @@ static all(id){
                                             AND habit_name = ($2)
                                             RETURNING *;`, [user_id, habit_name])
 
-                    //resolve
+                    console.log(restartData.rows[0])
+                    
+                //resolve
                     resolve(restartData.rows[0]) 
                 } 
             } catch (error) {
@@ -135,7 +146,9 @@ static all(id){
                 WHERE user_id = $1
                 AND habit_name = $2;`, [user_id, habit_name])
                 let updateData;
-                if (data.rows[0].frequency > (data.rows[0].difference.days || 0)) {
+                let differenceResult = data.rows[0].difference === null ? 0 : data.rows[0].difference.days
+
+                if (data.rows[0].frequency > (differenceResult || 0)) {
                     updateData = await db.query(`SELECT completed FROM habits
                                             WHERE user_id = ($1)
                                             AND habit_name = ($2);`, [ user_id, habit_name])
