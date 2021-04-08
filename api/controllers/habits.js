@@ -45,14 +45,25 @@ async function updateHabit(req,res){
         res.status(200).json(updatedHabit)
 
     } catch(err){
-
+        console.log(err)
         res.status(500).json({err})
 
 
     }
 }
 
+async function updateCompleted(req, res) {
+    try {
+        console.log(req.params.id)
+        const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
+        const completed = await Habit.resetCompleted(habitToUpdate.user_id, habitToUpdate.habit_name);
+        res.status(200).json({completed: completed})
+    } catch(err) {
+        res.status(500).json({err})
+    }
+}
 
 
-module.exports = {create, all, findHabitById, updateHabit };
+
+module.exports = {create, all, findHabitById, updateHabit, updateCompleted };
 

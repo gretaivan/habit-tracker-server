@@ -55,6 +55,7 @@ static all(id){
         return new Promise (async (resolve, reject) => {
             try {
                 let habitData = await db.query(`SELECT * FROM habits WHERE id = $1;`, [ id ]);
+                console.log(habitData.rows[0])
                 let habit = new Habit(habitData.rows[0]);
                 resolve (habit);
             } catch (err) {
@@ -64,16 +65,14 @@ static all(id){
     }
 
 
-    static update() {
+    update() {
         return new Promise (async (resolve, reject) => {
             try {
                 let updatedHabitData = await db.query(`UPDATE habits 
                                                     SET completed = True, 
                                                     last_comp_date = NOW()
                                                     WHERE id = $1 RETURNING *;`, [ this.id ]);
-                console.log(updatedHabitData.rows[0])
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
-                console.log(updatedHabit)
                 resolve (updatedHabit);
             } catch (err) {
                 reject('Error updating Habit');
@@ -90,8 +89,7 @@ static all(id){
             // select frequency and difference from database and store as a variable for each userid and habit // 
                 const frequency = await db.query(`SELECT frequency from habits
                                                 WHERE user_id = $1
-                                                AND habit_name = $2
-                                                AND completed = true`, [user_id, habit_name])
+                                                AND habit_name = $2`, [user_id, habit_name])
                                                 
                 const difference = await db.query(`SELECT (NOW() - last_comp_date) AS difference
                                                 FROM habits 
@@ -110,7 +108,6 @@ static all(id){
                                             SET streak = streak + 1
                                             WHERE user_id = ($1)
                                             AND habit_name = ($2)
-                                            AND completed = true
                                             RETURNING streak;`, [ user_id, habit_name])
                     //resolve
                     if (!!incrementedData.rows[0]) { 
@@ -139,7 +136,7 @@ static all(id){
                 WHERE user_id = $1
                 AND habit_name = $2;`, [user_id, habit_name])
                 let updateData;
-                if (data.rows[0].frequency > data.rows[0].difference.days) {
+                if (data.rows[0].frequency > (data.rows[0].difference.days || 0)) {
                     updateData = await db.query(`SELECT completed FROM habits
                                             WHERE user_id = ($1)
                                             AND habit_name = ($2);`, [ user_id, habit_name])
