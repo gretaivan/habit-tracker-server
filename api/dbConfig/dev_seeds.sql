@@ -8,7 +8,8 @@ VALUES
 INSERT INTO habits (habit_name, frequency, user_id, completed, last_comp_date)
 VALUES
 ('coding', 1, 2, true, '2020-10-05'),
-('sleeping', 1, 2, true, '2021-04-06');
+('sleeping', 1, 3, true, '2021-04-06'),
+('water', 3, 4, true, '2021-04-07');
 
 INSERT INTO completed (completed_date, habits_id)
 VALUES
