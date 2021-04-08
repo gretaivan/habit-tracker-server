@@ -54,6 +54,27 @@ describe('all', () => {
         })
     });
 
+    describe('update', () => {
+        test('it updates the habit, makes completed true and sets last comp date to now', async () => {
+            let testData = {id: 1, completed: true, last_comp_date: "Now()"}
+            jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [testData]});
+            const habit = new Habit(testData);
+            const result = await habit.update();
+            expect(result.id).toEqual(testData.id);
+            expect(result.completed).toEqual(testData.completed);
+            expect(result.last_comp_date).toEqual(testData.last_comp_date);
+        });
+        
+        test('it throws an error on unsuccessful db query', async () => {
+            let testData = {id: 1, completed: true, last_comp_date: "Now()"}
+            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            const habit = new Habit(testData);
+            await habit.update().catch(e => {
+                expect(e).toEqual('Error updating Habit');
+            })
+        });
+    })
+
     describe('updateStreak', () => {
         test('it increments the streak value if date is within limit', async () =>{
             let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
