@@ -55,7 +55,6 @@ static all(id){
         return new Promise (async (resolve, reject) => {
             try {
                 let habitData = await db.query(`SELECT * FROM habits WHERE id = $1;`, [ id ]);
-                console.log(habitData.rows[0])
                 let habit = new Habit(habitData.rows[0]);
                 resolve (habit);
             } catch (err) {

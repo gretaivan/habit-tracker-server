@@ -8,4 +8,3 @@ router.get('/:id', habitsController.findHabitById)
 router.patch('/:id', habitsController.updateHabit)
 router.patch('/reset/:id', habitsController.updateCompleted)
 module.exports = router;
-// localhost3000/habits/reset/:id
