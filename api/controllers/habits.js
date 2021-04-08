@@ -39,19 +39,31 @@ async function findHabitById(req,res){
 
 async function updateHabit(req,res){
     try{
+        console.log("Update request received")
         const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
+        const streak = await Habit.updateStreak(habitToUpdate.user_id, habitToUpdate.habit_name);
         const updatedHabit = await habitToUpdate.update()
         res.status(200).json(updatedHabit)
 
     } catch(err){
-
         res.status(500).json({err})
 
 
     }
 }
 
+async function updateCompleted(req, res) {
+    try {
+        console.log(req.params.id)
+        const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
+        const completed = await Habit.resetCompleted(habitToUpdate.user_id, habitToUpdate.habit_name);
+        res.status(200).json({completed: completed})
+    } catch(err) {
+        res.status(500).json({err})
+    }
+}
 
 
-module.exports = {create, all, findHabitById, updateHabit };
+
+module.exports = {create, all, findHabitById, updateHabit, updateCompleted };
 
