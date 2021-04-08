@@ -6,10 +6,7 @@ CREATE TABLE habits (
     frequency INT NOT NULL,
     user_id INT NOT NULL,
     completed BOOLEAN,
-    last_comp_date DATE, 
-    comp_dates_id INT,
-    streak INT
-    
+    last_comp_date DATE
     );
 
 

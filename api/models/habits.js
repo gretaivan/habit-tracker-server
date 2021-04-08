@@ -14,11 +14,15 @@ class Habit {
 
 //all habits
 
-static get all(){
+static all(id){
     return new Promise (async (resolve, reject) => {
         try {
-            let habitData = await db.query('SELECT * FROM habits;');
+            console.log(id)
+            let habitData = await db.query(`SELECT * FROM habits WHERE user_id = $1;`, [id]);
+            console.log(habitData)
+        
             let habits = habitData.rows.map(h => new Habit(h));
+            
             resolve (habits);
         } catch (err) {
             reject('Habit not found');
@@ -93,14 +97,10 @@ static get all(){
                                                 AND habit_name = ($2)`, [user_id, habit_name])
 
 
-            
-                
             // check if the frequency is greater than difference from sql query //
                 let incrementedData;
                 let restartData;
 
-                console.log(difference.rows[0].difference.days)
-                // console.log(frequency)
 
                 if (frequency.rows[0].frequency >= difference.rows[0].difference.days) {
 
@@ -112,7 +112,6 @@ static get all(){
                                             AND completed = true
                                             RETURNING streak;`, [ user_id, habit_name])
                     //resolve
-                    console.log(incrementedData.rows[0])
                     if (!!incrementedData.rows[0]) { 
                         resolve(incrementedData.rows[0]) } 
                 } else {
@@ -124,7 +123,6 @@ static get all(){
                                             RETURNING *;`, [user_id, habit_name])
 
                     //resolve
-                    console.log(restartData)
                     resolve(restartData.rows[0]) 
                 } 
             } catch (error) {

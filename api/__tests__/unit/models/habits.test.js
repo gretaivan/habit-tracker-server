@@ -14,14 +14,14 @@ describe('all', () => {
         test('it resolves with habits on successful db query', async () => {
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({ rows: [{}, {}, {}, {}]});
-            const all = await Habit.all;
+            const all = await Habit.all(2);
             expect(all).toHaveLength(4)
         })
 
         test('it resolves with a habit with a property of id on a successful db query', async () => {
             jest.spyOn(db, 'query')
                 .mockResolvedValueOnce({ rows: [{}]});
-            const all = await Habit.all;
+            const all = await Habit.all(2);
             expect(all[0]).toHaveProperty('id')
  
     });
