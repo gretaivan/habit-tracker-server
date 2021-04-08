@@ -9,8 +9,13 @@ const streak = require('./models/habits');
 
 async function testing(){
     //2 'coding'
-    let test = await streak.updateStreak(2, 'coding')
-    await console.log(test)
+    let test = await streak.updateStreak(4, 'water')
+    console.log(test)
+    //let test1 = await streak.resetCompleted(4, 'water')
+    //console.log(test1)
+    //let test2 = await streak.resetCompleted(3, 'sleeping')
+    //console.log(test2)
+    let test3 = await streak.update(4);
 
 };
 

@@ -40,6 +40,7 @@ async function findHabitById(req,res){
 async function updateHabit(req,res){
     try{
         const habitToUpdate = await Habit.findHabitById(parseInt(req.params.id))
+        const streak = await Habit.updateStreak(habitToUpdate.user_id, habitToUpdate.habit_name);
         const updatedHabit = await habitToUpdate.update()
         res.status(200).json(updatedHabit)
 

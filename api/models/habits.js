@@ -10,6 +10,7 @@ class Habit {
         this.last_comp_date = data.last_comp_date || null; 
         this.comp_dates_id = data.comp_dates_id || null;
         this.user_id = data.user_id //connects habit to specific user
+        this.streak = data.streak;
     }
 
 //all habits
@@ -63,14 +64,16 @@ static all(id){
     }
 
 
-    update() {
+    static update() {
         return new Promise (async (resolve, reject) => {
             try {
                 let updatedHabitData = await db.query(`UPDATE habits 
                                                     SET completed = True, 
                                                     last_comp_date = NOW()
                                                     WHERE id = $1 RETURNING *;`, [ this.id ]);
+                console.log(updatedHabitData.rows[0])
                 let updatedHabit = new Habit(updatedHabitData.rows[0]);
+                console.log(updatedHabit)
                 resolve (updatedHabit);
             } catch (err) {
                 reject('Error updating Habit');
@@ -83,7 +86,6 @@ static all(id){
 // streak update function
     static updateStreak(user_id, habit_name) {
         return new Promise(async (resolve, reject) => {
-            
             try {
             // select frequency and difference from database and store as a variable for each userid and habit // 
                 const frequency = await db.query(`SELECT frequency from habits
@@ -101,8 +103,7 @@ static all(id){
                 let incrementedData;
                 let restartData;
 
-
-                if (frequency.rows[0].frequency >= difference.rows[0].difference.days) {
+                if (frequency.rows[0].frequency >= (difference.rows[0].difference.days || 0)) {
 
                 // if frequency greater or equal to difference, found by last comp date and now, then increment by one //
                     incrementedData = await db.query(`UPDATE habits
@@ -127,6 +128,32 @@ static all(id){
                 } 
             } catch (error) {
                 reject('ERROR: streak could not be updated\n' + error);
+            }
+        })
+    }
+
+    static resetCompleted(user_id, habit_name) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let data = await db.query(`SELECT frequency, (NOW() - last_comp_date) AS difference from habits
+                WHERE user_id = $1
+                AND habit_name = $2;`, [user_id, habit_name])
+                let updateData;
+                if (data.rows[0].frequency > data.rows[0].difference.days) {
+                    updateData = await db.query(`SELECT completed FROM habits
+                                            WHERE user_id = ($1)
+                                            AND habit_name = ($2);`, [ user_id, habit_name])
+                } else {
+                    updateData = await db.query(`UPDATE habits
+                                            SET completed = false
+                                            WHERE user_id = ($1)
+                                            AND habit_name = ($2)
+                                            RETURNING completed;`, [ user_id, habit_name])
+                }
+                resolve(updateData.rows[0].completed)
+            }
+            catch (err) {
+                reject('ERROR: completed could not be updated\n' + err);
             }
         })
     }
