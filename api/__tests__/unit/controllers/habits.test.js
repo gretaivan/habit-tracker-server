@@ -77,13 +77,42 @@ describe('Habit Controller', () => {
     describe('updateHabit', () => {
         test('returns updated habit and 200 status code with valid id', async () => {
             let habitId = 1;
-            testData = {user_id: 1, habit_name: 'coding'}
+            let testData = {user_id: 1, habit_name: 'coding'}
             jest.spyOn(Habit, 'findHabitById').mockResolvedValue({update: function() {return testData}});
             jest.spyOn(Habit, 'updateStreak').mockResolvedValue({streak: 0});
             const mockReq = {params: {id: habitId}};
             await habitsController.updateHabit(mockReq, mockRes);
             expect(mockStatus).toHaveBeenCalledWith(200);
             expect(mockJson).toHaveBeenCalledWith(testData);
+        })
+        
+        test('returns error and 200 status code with invalid id', async () => {
+            let habitId = 1;
+            testData = {user_id: 1, habit_name: 'coding'}
+            jest.spyOn(Habit, 'findHabitById').mockRejectedValue("Habit not found");
+            const mockReq = {params: {id: habitId}};
+            await habitsController.updateHabit(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+            expect(mockJson).toHaveBeenCalledWith({err: "Habit not found"});
+        })
+    })
+
+    describe('updateCompleted', () => {
+        test('returns updated habit and 200 status code with valid id', async () => {
+            jest.spyOn(Habit, 'findHabitById').mockResolvedValue({});
+            jest.spyOn(Habit, 'resetCompleted').mockResolvedValue(true);
+            const mockReq = {params: {id: 1}};
+            await habitsController.updateCompleted(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(200);
+            expect(mockJson).toHaveBeenCalledWith({completed: true});
+        })
+        
+        test('returns error and 200 status code with invalid id', async () => {
+            jest.spyOn(Habit, 'findHabitById').mockRejectedValue("Habit not found");
+            const mockReq = {params: {id: 145}};
+            await habitsController.updateCompleted(mockReq, mockRes);
+            expect(mockStatus).toHaveBeenCalledWith(500);
+            expect(mockJson).toHaveBeenCalledWith({err: "Habit not found"});
         })
     })
 

@@ -37,6 +37,23 @@ describe('all', () => {
         })
     });
 
+    describe('findHabitById', () => {
+        test('it returns all fields from the database with a successful query', async () => {
+            let habitData = {id: 2, habit_name: "Sleep", frequency: 4, user_id:3};
+            jest.spyOn(db, 'query').mockResolvedValueOnce({rows: [habitData]});
+            const result = await Habit.findHabitById(habitData.id);
+            expect(result.id).toEqual(habitData.id);
+        });
+
+        test('it returns an error on unsuccessful database query', async () => {
+            let habitData = {id: 2, habit_name: "Sleep", frequency: 4, user_id:3};
+            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            await Habit.findHabitById(habitData.id).catch(e => {
+                expect(e).toEqual('Habit not found');
+            });
+        })
+    });
+
     describe('updateStreak', () => {
         test('it increments the streak value if date is within limit', async () =>{
             let habitData = { habit_name: "Sleep", frequency: 1, user_id:3, completed: true, streak: 1}
