@@ -1,5 +1,5 @@
-# Force of Habit
-An app to track your habits. 
+# Drink() Sleep() Code() Repeat()
+An app for developers to track their drinking, coding and sleeping habits. Ensuring that developers have a healthy code life balance. 
 
 ## Installation & Usage 
 ## Instalation 
