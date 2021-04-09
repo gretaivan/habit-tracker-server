@@ -1,13 +1,24 @@
-# Force of Habit
-An app to track your habits. 
+# Drink() Sleep() Code() Repeat()
+An app for developers to track their drinking, coding and sleeping habits. Ensuring that developers have a healthy code life balance. 
+
+## Features 
++ User can register 
++ User can login and logout
++ User can create a habit and choose frequency of tracking
++ User can mark habit as complete
++ Users can see if they have completed a habit for the day and see their most recent completion streak
+
+### Client 
+Find client side code here [here](https://github.com/gretaivan/habit-tracker-client)
 
 ## Installation & Usage 
 ## Instalation 
-+ clone the repo 
++ clone the repo
++ cd into folder
 
 ## Usage
-### To run in local
-+ TO run Node
+### To run locallly
++ To run Node
 **`npm start`**
 + To run nodemon
 **`npm run dev`**
@@ -15,7 +26,7 @@ An app to track your habits.
 **`npm test`**
 
 
-### To run in server
+### To run in docker
 +  start api & db services
 **`bash _scripts/startDev.sh`**
  
@@ -48,34 +59,35 @@ An app to track your habits.
 + supertest 6.1.3
 
 
-## Authors
-
-## License 
 
 ## Process 
-### application folder system setup
+### Application folder system setup
 + set up the appropriate folder structure
 + added script files 
 + installed dependencies for the application
 + added docker compose files
 + added testing suite with dependencies
 
-### db\migrations 
-//TODO
-1. Create database schema
-//TODO
-
-
-## Server functionality
-
-
-### Client 
-
-
 
 
 ## Bugs
+- [ ] Error message does not appear if there is an error on login 
+- [ ] Prevent user from having the same habit multiple times 
+
  
+## Future Features 
+- [ ] Edit habit
+- [ ] Delete habit
+- [ ] Calender view of habits 
+- [ ] Streak progress bar 
+- [ ] Tokenisation 
 
-## Wins & Challenges
+## Authors 
+[Greta Ivan](https://github.com/gretaivan),
+[Pearl Hamilton](https://github.com/pearlhamilton),
+[Ryan Kuppan](https://github.com/RKuppan97),
+[Semhar Tesfu](https://github.com/Sem-the-dev),
+[James Wheadon](https://github.com/JamesWheadon)
 
+## License 
+MIT

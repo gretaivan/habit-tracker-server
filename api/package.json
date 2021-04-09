@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest --setupFiles ./__tests__/integration/config.js --watchAll --detectOpenHandles --runInBand --verbose",
     "start": "node app.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon app.js --legacy-watch",
     "seedDev": "node dbConfig/seedDev.js",
     "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
     "coverage": "jest --setupFiles ./__tests__/integration/config.js --testPathPattern=/unit/ --coverage"
@@ -15,7 +15,8 @@
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
-      "/__tests__/integration/config.js"
+      "/__tests__/integration/config.js",
+      "/dbConfig/init.js"
     ],
     "watchPathIgnorePatterns": [
       "/node_modules/",
