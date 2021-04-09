@@ -18,7 +18,7 @@ async function find (req, res) {
             throw new Error('Invalid Password');
         }
     } catch (err) {
-        res.status(403).json({err});
+        res.status(403).json({err: err.message});
     }
 }
 
