@@ -19,6 +19,13 @@ describe('User model', () => {
             const all = await User.all;
             expect(all).toHaveLength(1);
         })
+
+        it ('rejects with an error on unsuccessful db query', async () => {
+            jest.spyOn(db, 'query').mockResolvedValueOnce(undefined);
+            await User.all.catch(e => {
+                expect(e).toEqual('ERROR: user could not get the user record')
+            })
+        })
     })
 
     describe('create', () => {
