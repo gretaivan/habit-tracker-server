@@ -5,8 +5,8 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 + User can register 
 + User can login and logout
 + User can create a habit and choose frequency of tracking
-+ User can complete task on image click 
-+ Streak is updated if user completes habit on time
++ User can mark habit as complete
++ Users can see if they have completed a habit for the day and see their most recent completion streak
 
 ### Client 
 Find client side code here [here](https://github.com/gretaivan/habit-tracker-client)
@@ -90,3 +90,4 @@ Find client side code here [here](https://github.com/gretaivan/habit-tracker-cli
 [James Wheadon](https://github.com/JamesWheadon)
 
 ## License 
+MIT
