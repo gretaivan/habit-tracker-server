@@ -8,13 +8,17 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 + User can complete task on image click 
 + Streak is updated if user completes habit on time
 
+### Client 
+Find client side code here [here](https://github.com/gretaivan/habit-tracker-client)
+
 ## Installation & Usage 
 ## Instalation 
-+ clone the repo 
++ clone the repo
++ cd into folder
 
 ## Usage
-### To run in local
-+ TO run Node
+### To run locallly
++ To run Node
 **`npm start`**
 + To run nodemon
 **`npm run dev`**
@@ -22,7 +26,7 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 **`npm test`**
 
 
-### To run in server
+### To run in docker
 +  start api & db services
 **`bash _scripts/startDev.sh`**
  
@@ -57,17 +61,13 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 
 
 ## Process 
-### application folder system setup
+### Application folder system setup
 + set up the appropriate folder structure
 + added script files 
 + installed dependencies for the application
 + added docker compose files
 + added testing suite with dependencies
 
-
-
-### Client 
-Find client side code here [here](https://github.com/gretaivan/habit-tracker-client)
 
 
 ## Bugs
