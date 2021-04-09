@@ -1,6 +1,13 @@
 # Drink() Sleep() Code() Repeat()
 An app for developers to track their drinking, coding and sleeping habits. Ensuring that developers have a healthy code life balance. 
 
+## Features 
++ User can register 
++ User can login and logout
++ User can create a habit and choose frequency of tracking
++ User can complete task on image click 
++ Streak is updated if user completes habit on time
+
 ## Installation & Usage 
 ## Instalation 
 + clone the repo 
@@ -73,9 +80,15 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 Find client side code here [here](https://github.com/gretaivan/habit-tracker-client)
 
 
-
 ## Bugs
- 
+-[] Error message does not appear if there is an error on login 
+-[] Prevent user from having the same habit multiple times 
 
-## Wins & Challenges
+ 
+## Future Features 
+-[] Edit habit
+-[] Delete habit
+- [] Calender view of habits 
+- [] Streak progress bar 
+- [] Tokenisation 
 
