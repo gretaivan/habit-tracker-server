@@ -86,9 +86,9 @@ Find client side code here [here](https://github.com/gretaivan/habit-tracker-cli
 
  
 ## Future Features 
--[] Edit habit
--[] Delete habit
-- [] Calender view of habits 
-- [] Streak progress bar 
-- [] Tokenisation 
+-[ ] Edit habit
+-[ ] Delete habit
+- [ ] Calender view of habits 
+- [ ] Streak progress bar 
+- [ ] Tokenisation 
 
