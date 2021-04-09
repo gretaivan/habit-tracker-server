@@ -55,9 +55,6 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 + supertest 6.1.3
 
 
-## Authors
-
-## License 
 
 ## Process 
 ### application folder system setup
@@ -67,13 +64,6 @@ An app for developers to track their drinking, coding and sleeping habits. Ensur
 + added docker compose files
 + added testing suite with dependencies
 
-### db\migrations 
-//TODO
-1. Create database schema
-//TODO
-
-
-## Server functionality
 
 
 ### Client 
@@ -81,14 +71,22 @@ Find client side code here [here](https://github.com/gretaivan/habit-tracker-cli
 
 
 ## Bugs
--[] Error message does not appear if there is an error on login 
--[] Prevent user from having the same habit multiple times 
+- [ ] Error message does not appear if there is an error on login 
+- [ ] Prevent user from having the same habit multiple times 
 
  
 ## Future Features 
--[ ] Edit habit
--[ ] Delete habit
+- [ ] Edit habit
+- [ ] Delete habit
 - [ ] Calender view of habits 
 - [ ] Streak progress bar 
 - [ ] Tokenisation 
 
+## Authors 
+[Greta]
+[Pearl](https://github.com/pearlhamilton)
+[Ryan]
+[Semhar]
+[James] 
+
+## License 
