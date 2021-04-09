@@ -83,10 +83,10 @@ Find client side code here [here](https://github.com/gretaivan/habit-tracker-cli
 - [ ] Tokenisation 
 
 ## Authors 
-[Greta Ivan](https://github.com/gretaivan)
-[Pearl Hamilton](https://github.com/pearlhamilton)
-[Ryan Kuppan]
-[Semhar Tesfu](https://github.com/Sem-the-dev)
-[James Wheadon] 
+[Greta Ivan](https://github.com/gretaivan),
+[Pearl Hamilton](https://github.com/pearlhamilton),
+[Ryan Kuppan](https://github.com/RKuppan97),
+[Semhar Tesfu](https://github.com/Sem-the-dev),
+[James Wheadon](https://github.com/JamesWheadon)
 
 ## License 
